@@ -1,5 +1,6 @@
 <?php
-
+$name= htmlentities($_GET["name"]);
+$check= false;
 $superheroes = [
   [
       "id" => 1,
@@ -66,7 +67,39 @@ $superheroes = [
 ?>
 
 <ul>
+	
 <?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
+	<?php if(($superhero['name']== $name ||$superhero['alias']== $name )&& ($name!="")):?>
+		<h3><?= $superhero['alias']; ?></h3>
+		<h4><?= $superhero['name']; ?></h4>
+		<p><?= $superhero['biography']; ?></p>
+		<?php $check= false;
+		break;
+		?>
+
+		<?php else:?>
+		<?php $check= true;?>	
+		<?php endif;?>
 <?php endforeach; ?>
+<?php if($name==""):?>
+<?php foreach ($superheroes as $superhero): ?>
+<li><?= $superhero['alias']; ?></li>
+<?php $check= false;?>
+	<?php endforeach; ?>
+	<?php endif;?>
+
+
+
+
+
+<?php if($check):?>
+<h4> <font color="red"><?= "Superhero not found" ?></font></h4>	
+<?php endif; ?>
+
+
+	
+
+
+
+
 </ul>
